@@ -14,8 +14,7 @@ import java.util.concurrent.Executors;
  */
 public final class EventListenerRegistry {
 
-    /** this static instance */
-    private static EventListenerRegistry INSTANCE = new EventListenerRegistry();
+    private String registryID = "";
 
     /** the set of registered listeners */
     private Set<IEventListener> registeredListeners = Collections.synchronizedSet(new LinkedHashSet<>());
@@ -32,19 +31,11 @@ public final class EventListenerRegistry {
     /** the thread owned by this registry. either for processing the queue or for non-blocking linear event notifying */
     private Thread regThread = new Thread();
 
-
     /**
-     * gets the instance of the listener
-     * @return -> the {@link com.sreid.basiceventlib.registry.EventListenerRegistry instance}
+     * package-private ctor. should only be created via the {@link com.sreid.basiceventlib.registry.EventListenerRegistryManager}
      */
-    public static EventListenerRegistry getDefault() {
-        return INSTANCE;
-    }
-
-    /**
-     * private ctor. might want to make package private for a factory impl
-     */
-    private EventListenerRegistry() {
+    EventListenerRegistry(final String id) {
+        this.registryID = id;
     }
 
     /**
