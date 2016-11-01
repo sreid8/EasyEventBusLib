@@ -17,7 +17,7 @@ public final class EventListenerRegistry {
     private String registryID = "";
 
     /** the set of registered listeners */
-    private Set<IEventListener> registeredListeners = Collections.synchronizedSet(new LinkedHashSet<>());
+    private Set<IEventListener> registeredListeners = Collections.synchronizedSet(new LinkedHashSet<IEventListener>());
 
     /** the method that the listeners are notified by. default to BLOCKING */
     private EventListenerNotifyMethod mode = EventListenerNotifyMethod.BLOCKING;
@@ -27,7 +27,7 @@ public final class EventListenerRegistry {
     private ExecutorService threadPool = null;
 
     /** the queue for the events as they come in */
-    private List<BasicEvent> basicEventsProcQueue = Collections.synchronizedList(new ArrayList<>());
+    private List<BasicEvent> basicEventsProcQueue = Collections.synchronizedList(new ArrayList<BasicEvent>());
     /** the thread owned by this registry. either for processing the queue or for non-blocking linear event notifying */
     private Thread regThread = new Thread();
 
