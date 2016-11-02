@@ -1,6 +1,5 @@
 package com.sreid.basiceventlib.interfaces;
 
-import com.sreid.basiceventlib.BasicEvent;
 
 /**
  * Classes implement this interface to subscribe to events
@@ -15,6 +14,6 @@ public interface IEventListener {
      * @param event -> the event
      * @return -> a boolean to describe whether the event was adequately handled
      */
-    boolean handleEvent(BasicEvent event);
+    boolean handleEvent(Enum event);
 
 }
