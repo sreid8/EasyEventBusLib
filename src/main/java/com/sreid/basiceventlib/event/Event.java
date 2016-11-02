@@ -19,11 +19,11 @@ public class Event extends EventObject {
         this.state = pState;
     }
 
-    protected void setState(final Enum pState) {
+    public void setState(final Enum pState) {
         this.state = pState;
     }
 
-    protected Enum getState() {
+    public Enum getState() {
         return this.state;
     }
 }
