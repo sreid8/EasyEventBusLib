@@ -1,6 +1,6 @@
 package com.sreid.basiceventlib.registry;
 
-import com.sreid.basiceventlib.com.sreid.basiceventlib.event.Event;
+import com.sreid.basiceventlib.event.Event;
 import com.sreid.basiceventlib.interfaces.IEventListener;
 
 import java.util.ArrayList;
