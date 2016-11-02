@@ -24,7 +24,7 @@ public class EventListenerRegistryManager {
      * gets the manager
      * @return -> the instance of the manager
      */
-    private static EventListenerRegistryManager getManager() {
+    public static EventListenerRegistryManager getManager() {
         return INSTANCE;
     }
 
