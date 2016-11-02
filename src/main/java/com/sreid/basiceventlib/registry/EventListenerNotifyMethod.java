@@ -7,7 +7,7 @@ package com.sreid.basiceventlib.registry;
 public enum EventListenerNotifyMethod {
     /** Default. This will call the notify method
      * of each {@link com.sreid.basiceventlib.interfaces.IEventListener Listener} on the same
-     * thread that the {@link com.sreid.basiceventlib.registry.EventListenerRegistry#notifyListeners(Enum)}
+     * thread that the {@link com.sreid.basiceventlib.registry.EventListenerRegistry#notifyListeners(com.sreid.basiceventlib.com.sreid.basiceventlib.event.Event)}
      * method was called on, blocking the caller from continuing
      */
     BLOCKING,

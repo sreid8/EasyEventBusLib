@@ -1,5 +1,6 @@
 package com.sreid.basiceventlib.registry;
 
+import com.sreid.basiceventlib.com.sreid.basiceventlib.event.Event;
 import com.sreid.basiceventlib.interfaces.IEventListener;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public final class EventListenerRegistry {
     private ExecutorService threadPool = null;
 
     /** the queue for the events as they come in */
-    private List<Enum> eventsProcQueue = Collections.synchronizedList(new ArrayList<Enum>());
+    private List<Event> eventsProcQueue = Collections.synchronizedList(new ArrayList<Event>());
     /** the thread owned by this registry. either for processing the queue or for non-blocking linear event notifying */
     private Thread regThread = new Thread();
 
@@ -80,12 +81,12 @@ public final class EventListenerRegistry {
      * notifies the registered {@link com.sreid.basiceventlib.interfaces.IEventListener listeners}
      * via the method the registry is configured to use
      * @see com.sreid.basiceventlib.registry.EventListenerNotifyMethod
-     * @param event -> the {@link Enum event}
+     * @param event -> the {@link Event event}
      * @return -> true if the method was executed, false otherwise. true does not guarantee that the
-     *              {@link com.sreid.basiceventlib.interfaces.IEventListener#handleEvent(Enum)} method has
+     *              {@link com.sreid.basiceventlib.interfaces.IEventListener#handleEvent(Event)} method has
      *              finished or provide any information about its current status
      */
-    public boolean notifyListeners(final Enum event) {
+    public boolean notifyListeners(final Event event) {
         boolean handled = false;
         switch (this.mode) {
             case BLOCKING:
@@ -141,7 +142,7 @@ public final class EventListenerRegistry {
      * @param e -> the Event
      * @return -> true if the events all were handled
      */
-    private boolean notifyListenersBlocking(final Enum e) {
+    private boolean notifyListenersBlocking(final Event e) {
         boolean handled = true;
         for (IEventListener listener : this.registeredListeners) {
             handled = handled && listener.handleEvent(e);
@@ -154,7 +155,7 @@ public final class EventListenerRegistry {
      * @param e -> the Event
      * @return -> true in all cases
      */
-    private boolean notifyListenersNewThread(final Enum e) {
+    private boolean notifyListenersNewThread(final Event e) {
         for (IEventListener listener : this.registeredListeners) {
             new Thread(new ListenerRunnable(listener, e)).start();
         }
@@ -166,7 +167,7 @@ public final class EventListenerRegistry {
      * @param e -> the Event
      * @return -> true in all cases
      */
-    private boolean notifyListenersThreadPool(final Enum e) {
+    private boolean notifyListenersThreadPool(final Event e) {
         if (this.regThread == null || !this.regThread.isAlive()) {
             this.regThread = new Thread(new QueueMgmtRunnable(this.eventsProcQueue,
                     this.registeredListeners,
@@ -182,7 +183,7 @@ public final class EventListenerRegistry {
      * @param e -> the Event
      * @return -> true in all cases
      */
-    private boolean notifyListenersNonBlockingLinear(final Enum e) {
+    private boolean notifyListenersNonBlockingLinear(final Event e) {
         if (this.regThread == null || !this.regThread.isAlive()) {
             this.regThread = new Thread(new QueueMgmtRunnable(this.eventsProcQueue,
                     this.registeredListeners, Executors.newFixedThreadPool(1)));
@@ -197,9 +198,9 @@ public final class EventListenerRegistry {
      */
     private class ListenerRunnable implements Runnable {
         private IEventListener listener = null;
-        private Enum event = null;
+        private Event event = null;
 
-        public ListenerRunnable(IEventListener pListener, Enum e) {
+        public ListenerRunnable(IEventListener pListener, Event e) {
             this.listener = pListener;
             this.event = e;
         }
@@ -214,12 +215,12 @@ public final class EventListenerRegistry {
      * a private class to handle the management of the event queue and execute the listener's handler
      */
     private class QueueMgmtRunnable implements Runnable {
-        private List<Enum> eventQueue = null;
+        private List<Event> eventQueue = null;
         private Set<IEventListener> listeners = null;
         private ExecutorService threads = null;
 
 
-        public  QueueMgmtRunnable(List<Enum> queue, Set<IEventListener> listen, ExecutorService pool) {
+        public  QueueMgmtRunnable(List<Event> queue, Set<IEventListener> listen, ExecutorService pool) {
             this.eventQueue = queue;
             this.listeners = listen;
             this.threads = pool;
@@ -229,7 +230,7 @@ public final class EventListenerRegistry {
         public void run() {
             while (true) {
                 while (eventQueue.size() > 0) {
-                    Enum temp = eventQueue.get(0);
+                    Event temp = eventQueue.get(0);
                     eventQueue.remove(0);
                     for (IEventListener listener : listeners) {
                         threads.execute(new ListenerRunnable(listener, temp));
