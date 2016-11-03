@@ -48,7 +48,7 @@ public class EventListenerRegistryManager {
      * @return -> the {@link com.sreid.basiceventlib.registry.EventListenerRegistry}
      */
     public EventListenerRegistry getRegistry(final String id) {
-        return this.registries.get(id);
+        return (this.registries.get(id) != null ? this.registries.get(id) : this.createRegistry(id));
     }
 
     /**

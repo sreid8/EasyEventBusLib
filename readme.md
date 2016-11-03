@@ -1,5 +1,5 @@
 Basic event lib todo:
 
-Make the registry handle all the methods of notifying listeners
-Make a registry factory that can handle being created for specific types of listeners; ex: EventListenerRegistryFactory.newRegistry(String regName);
-											and EventListenerRegistryFactory.getRegistry(String regName);
+Fix issue with applications using the THREAD_POOL method not ever terminating. I assume it has something to do with the delegation thread never terminating. I'll have to think of something to solve that problem.
+
+There's also a problem with the NON_BLOCKING_LINEAR notify method that causes an exception first, then it seems to work afterwards. It may be that these two issues are related.
