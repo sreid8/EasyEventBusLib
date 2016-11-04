@@ -34,6 +34,7 @@ public final class EventListenerRegistry {
     private List<Event> eventsProcQueue = Collections.synchronizedList(new ArrayList<Event>());
     /** the thread owned by this registry. either for processing the queue or for non-blocking linear event notifying */
     private Thread regThread = new Thread();
+    private Object regThreadLock = new Object();
 
     /**
      * package-private ctor. should only be created via the {@link com.sreid.basiceventlib.registry.EventListenerRegistryManager}
@@ -168,13 +169,15 @@ public final class EventListenerRegistry {
      * @return -> true in all cases
      */
     private boolean notifyListenersThreadPool(final Event e) {
-        if (this.regThread == null || !this.regThread.isAlive()) {
-            this.regThread = new Thread(new QueueMgmtRunnable(this.eventsProcQueue,
-                    this.registeredListeners,
-                    this.threadPool));
-            this.regThread.start();
-        }
         this.eventsProcQueue.add(e);
+        synchronized (this.regThreadLock) {
+            if (this.regThread == null || !this.regThread.isAlive()) {
+                this.regThread = new Thread(new QueueMgmtRunnable(this.eventsProcQueue,
+                        this.registeredListeners,
+                        this.threadPool));
+                this.regThread.start();
+            }
+        }
         return true;
     }
 
@@ -184,13 +187,30 @@ public final class EventListenerRegistry {
      * @return -> true in all cases
      */
     private boolean notifyListenersNonBlockingLinear(final Event e) {
-        if (this.regThread == null || !this.regThread.isAlive()) {
-            this.regThread = new Thread(new QueueMgmtRunnable(this.eventsProcQueue,
-                    this.registeredListeners, Executors.newFixedThreadPool(1)));
-            this.regThread.start();
-        }
         this.eventsProcQueue.add(e);
+        synchronized (this.regThreadLock) {
+            if (this.regThread == null || !this.regThread.isAlive()) {
+                this.regThread = new Thread(new QueueMgmtRunnable(this.eventsProcQueue,
+                        this.registeredListeners, Executors.newFixedThreadPool(1)));
+                this.regThread.start();
+            }
+        }
         return true;
+    }
+
+    @Override
+    public void finalize() throws Throwable {
+        if (this.threadPool != null && !this.threadPool.isTerminated()) {
+            this.threadPool.shutdownNow();
+        }
+        if (this.regThread != null && this.regThread.isAlive()) {
+            this.regThread.interrupt();
+        }
+        try {
+            super.finalize();
+        } catch (Throwable e) {
+            throw e;
+        }
     }
 
     /**
@@ -228,19 +248,24 @@ public final class EventListenerRegistry {
 
         @Override
         public void run() {
-            while (true) {
-                while (eventQueue.size() > 0) {
-                    Event temp = eventQueue.get(0);
-                    eventQueue.remove(0);
-                    for (IEventListener listener : listeners) {
-                        threads.execute(new ListenerRunnable(listener, temp));
+            while (eventQueue.size() > 0 && !Thread.currentThread().isInterrupted()) {
+                Event temp = eventQueue.get(0);
+                eventQueue.remove(0);
+                for (IEventListener listener : listeners) {
+                    //if the threads aren't running, start them
+                    if (threads.isTerminated() || threads.isShutdown()) {
+                        while (!threads.isTerminated());
+                        threads = Executors.newFixedThreadPool(threadPoolSize);
                     }
+                    threads.execute(new ListenerRunnable(listener, temp));
                 }
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace(System.err);
                 }
+                //when the queue is empty, kill the thread pool so that we don't block the jvm exiting
+                threads.shutdown();
             }
         }
     }
