@@ -197,22 +197,7 @@ public final class EventListenerRegistry {
         }
         return true;
     }
-
-    @Override
-    public void finalize() throws Throwable {
-        if (this.threadPool != null && !this.threadPool.isTerminated()) {
-            this.threadPool.shutdownNow();
-        }
-        if (this.regThread != null && this.regThread.isAlive()) {
-            this.regThread.interrupt();
-        }
-        try {
-            super.finalize();
-        } catch (Throwable e) {
-            throw e;
-        }
-    }
-
+    
     /**
      * a private class to handle notifying a listener on a thread separate from the thread that is sending the Event
      */
