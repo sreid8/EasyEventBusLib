@@ -7,9 +7,12 @@ EasyEventBusLib is an easy-to-use Java Event Bus library. EasyEventBusLib has th
 
 **EasyEventBusLib was designed to prevent the need to write annoying event notification code without relying on extremely complex event libaries that have features you'll never use**
 
-### Build
+### Documentation
+Eventually, I'll get around to writing some wiki content. But until then, the javadocs in the code aren't half bad and I reference them when I need to look at how something works. They're rather detailed and get into how to use things like the Event Listener Notification Methods.
 
-Binary builds might be provided sometime in the future. At this point, only source is provided. Requires Java 1.7+
+### Use in your code
+
+Binary builds might be provided sometime in the future. At this point, only source is provided. Requires Java 1.7+ Though with minor modifictions, it could easily get brought down to 1.6 or possibly even 1.5.
 
 ```sh
 git clone https://github.com/sreid8/easyeventbuslib
@@ -69,6 +72,16 @@ I'm working on some examples, they'll be posted eventually and I'll link to that
 ### Contributing
 
 I don't pretend to know everything. If you'd like to add something or improve something I've already done or write some better unit tests, go for it!
+
+The wiki, defintely the wiki. That needs to be done. The javadocs are pretty good... they just need to be in wiki form.
+
+### To Dos
+- Wiki
+- Examples
+- Better Unit Tests
+- Performance Improvements
+- Better Thread Management
+- Drop Java version requirement from 1.7 to 1.5/1.6
 
 #### Building from source
 1. Clone the repo
