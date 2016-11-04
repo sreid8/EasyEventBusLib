@@ -83,7 +83,7 @@ The wiki, defintely the wiki. That needs to be done. The javadocs are pretty goo
 - Better Thread Management
 - Drop Java version requirement from 1.7 to 1.5/1.6
 
-#### Building from source
+### Building from source
 1. Clone the repo
 2. 
 ```sh
