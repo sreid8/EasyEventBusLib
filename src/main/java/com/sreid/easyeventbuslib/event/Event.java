@@ -1,4 +1,4 @@
-package com.sreid.basiceventlib.event;
+package com.sreid.easyeventbuslib.event;
 
 import java.util.EventObject;
 

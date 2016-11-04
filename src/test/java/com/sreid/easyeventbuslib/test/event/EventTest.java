@@ -1,6 +1,6 @@
-package com.sreid.basiceventlib.test.event;
+package com.sreid.easyeventbuslib.test.event;
 
-import com.sreid.basiceventlib.event.Event;
+import com.sreid.easyeventbuslib.event.Event;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 

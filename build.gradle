@@ -1,4 +1,4 @@
-group 'com.sreid.basiceventlib'
+group 'com.sreid.easyeventbuslib'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'

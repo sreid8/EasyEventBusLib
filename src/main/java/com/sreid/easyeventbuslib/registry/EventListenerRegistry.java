@@ -1,7 +1,7 @@
-package com.sreid.basiceventlib.registry;
+package com.sreid.easyeventbuslib.registry;
 
-import com.sreid.basiceventlib.event.Event;
-import com.sreid.basiceventlib.interfaces.IEventListener;
+import com.sreid.easyeventbuslib.event.Event;
+import com.sreid.easyeventbuslib.interfaces.IEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,7 +37,7 @@ public final class EventListenerRegistry {
     private Object regThreadLock = new Object();
 
     /**
-     * package-private ctor. should only be created via the {@link com.sreid.basiceventlib.registry.EventListenerRegistryManager}
+     * package-private ctor. should only be created via the {@link com.sreid.easyeventbuslib.registry.EventListenerRegistryManager}
      */
     EventListenerRegistry(final String id) {
         this.registryID = id;
@@ -48,8 +48,8 @@ public final class EventListenerRegistry {
     }
 
     /**
-     * registers a {@link com.sreid.basiceventlib.interfaces.IEventListener listener} with the registry
-     * @param listener -> a {@link com.sreid.basiceventlib.interfaces.IEventListener listener} that
+     * registers a {@link com.sreid.easyeventbuslib.interfaces.IEventListener listener} with the registry
+     * @param listener -> a {@link com.sreid.easyeventbuslib.interfaces.IEventListener listener} that
      *                 will be registered for event notifications
      * @return -> true if it was registered, false otherwise
      */
@@ -58,8 +58,8 @@ public final class EventListenerRegistry {
     }
 
     /**
-     * removes a {@link com.sreid.basiceventlib.interfaces.IEventListener listener} from this registry
-     * @param listener -> the {@link com.sreid.basiceventlib.interfaces.IEventListener listener} that should be removed
+     * removes a {@link com.sreid.easyeventbuslib.interfaces.IEventListener listener} from this registry
+     * @param listener -> the {@link com.sreid.easyeventbuslib.interfaces.IEventListener listener} that should be removed
      * @return -> true if listener was removed or never in the list, false if error
      */
     public boolean deregisterListener(final IEventListener listener) {
@@ -70,8 +70,8 @@ public final class EventListenerRegistry {
     }
 
     /**
-     * checks to see if the {@link com.sreid.basiceventlib.interfaces.IEventListener listener} is registered
-     * @param listener -> {@link com.sreid.basiceventlib.interfaces.IEventListener listener} to query
+     * checks to see if the {@link com.sreid.easyeventbuslib.interfaces.IEventListener listener} is registered
+     * @param listener -> {@link com.sreid.easyeventbuslib.interfaces.IEventListener listener} to query
      * @return -> true if registered, false if not
      */
     public boolean isListenerRegistered(final IEventListener listener) {
@@ -79,12 +79,12 @@ public final class EventListenerRegistry {
     }
 
     /**
-     * notifies the registered {@link com.sreid.basiceventlib.interfaces.IEventListener listeners}
+     * notifies the registered {@link com.sreid.easyeventbuslib.interfaces.IEventListener listeners}
      * via the method the registry is configured to use
-     * @see com.sreid.basiceventlib.registry.EventListenerNotifyMethod
+     * @see com.sreid.easyeventbuslib.registry.EventListenerNotifyMethod
      * @param event -> the {@link Event event}
      * @return -> true if the method was executed, false otherwise. true does not guarantee that the
-     *              {@link com.sreid.basiceventlib.interfaces.IEventListener#handleEvent(Event)} method has
+     *              {@link com.sreid.easyeventbuslib.interfaces.IEventListener#handleEvent(Event)} method has
      *              finished or provide any information about its current status
      */
     public boolean notifyListeners(final Event event) {
@@ -109,12 +109,12 @@ public final class EventListenerRegistry {
     }
 
     /**
-     * sets the {@link com.sreid.basiceventlib.registry.EventListenerNotifyMethod method} that this registry will
-     * use to notify the {@link com.sreid.basiceventlib.interfaces.IEventListener listeners}. if the method is
-     * {@link com.sreid.basiceventlib.registry.EventListenerNotifyMethod#THREAD_POOL THREAD_POOL}, the thread pool is
+     * sets the {@link com.sreid.easyeventbuslib.registry.EventListenerNotifyMethod method} that this registry will
+     * use to notify the {@link com.sreid.easyeventbuslib.interfaces.IEventListener listeners}. if the method is
+     * {@link com.sreid.easyeventbuslib.registry.EventListenerNotifyMethod#THREAD_POOL THREAD_POOL}, the thread pool is
      * created with the default size (num supported CPU threads) or the size set via
      * {@link EventListenerRegistry#setThreadPoolSize(int)}
-     * @param method -> the {@link com.sreid.basiceventlib.registry.EventListenerNotifyMethod method} to use
+     * @param method -> the {@link com.sreid.easyeventbuslib.registry.EventListenerNotifyMethod method} to use
      */
     public void setNotifyMethod(EventListenerNotifyMethod method) {
         //need to save the registered listeners and give them to the new instance...
@@ -128,7 +128,7 @@ public final class EventListenerRegistry {
     }
 
     /**
-     * sets the size of the thread pool the {@link com.sreid.basiceventlib.registry.EventListenerNotifyMethod#THREAD_POOL}
+     * sets the size of the thread pool the {@link com.sreid.easyeventbuslib.registry.EventListenerNotifyMethod#THREAD_POOL}
      * notify methos
      * @param size -> an integer to define the size of the thread pool
      */
@@ -197,7 +197,7 @@ public final class EventListenerRegistry {
         }
         return true;
     }
-    
+
     /**
      * a private class to handle notifying a listener on a thread separate from the thread that is sending the Event
      */

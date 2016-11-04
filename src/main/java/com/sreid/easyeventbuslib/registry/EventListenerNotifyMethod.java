@@ -1,4 +1,4 @@
-package com.sreid.basiceventlib.registry;
+package com.sreid.easyeventbuslib.registry;
 
 
 /**
@@ -6,14 +6,14 @@ package com.sreid.basiceventlib.registry;
  */
 public enum EventListenerNotifyMethod {
     /** Default. This will call the notify method
-     * of each {@link com.sreid.basiceventlib.interfaces.IEventListener Listener} on the same
-     * thread that the {@link com.sreid.basiceventlib.registry.EventListenerRegistry#notifyListeners(com.sreid.basiceventlib.event.Event)}
+     * of each {@link com.sreid.easyeventbuslib.interfaces.IEventListener Listener} on the same
+     * thread that the {@link com.sreid.easyeventbuslib.registry.EventListenerRegistry#notifyListeners(com.sreid.easyeventbuslib.event.Event)}
      * method was called on, blocking the caller from continuing
      */
     BLOCKING,
     /**
      * This will call the notify method
-     * of each {@link com.sreid.basiceventlib.interfaces.IEventListener Listener} on a new thread each time.
+     * of each {@link com.sreid.easyeventbuslib.interfaces.IEventListener Listener} on a new thread each time.
      * This will NOT black the calling thread from continuing and will ensure that most events are handled in parallel,
      * but the cost of starting a new thread for each event will be quite high for systems with high event traffic
      * or a large number of listeners as the number of active threads can easily get to a high value.
@@ -21,7 +21,7 @@ public enum EventListenerNotifyMethod {
     NEW_THREAD,
     /**
      * A thread pool will be used to handle the events. The size of the Thread Pool can be set
-     * with the {@link com.sreid.basiceventlib.registry.EventListenerRegistry#setThreadPoolSize(int)} method, but will
+     * with the {@link com.sreid.easyeventbuslib.registry.EventListenerRegistry#setThreadPoolSize(int)} method, but will
      * default to the number of threads the CPU can execute simultaneously. This is normally equal to the number of
      * cores your CPU has, but on some CPUs (like CPUs with Hyperthreading), it may be more than the number of cores.
      */

@@ -1,4 +1,4 @@
-package com.sreid.basiceventlib.test.registry;
+package com.sreid.easyeventbuslib.test.registry;
 
 /**
  * Created by sean on 11/1/16.

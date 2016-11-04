@@ -1,7 +1,7 @@
-package com.sreid.basiceventlib.interfaces;
+package com.sreid.easyeventbuslib.interfaces;
 
 
-import com.sreid.basiceventlib.event.Event;
+import com.sreid.easyeventbuslib.event.Event;
 
 /**
  * Classes implement this interface to subscribe to events

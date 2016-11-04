@@ -1,10 +1,10 @@
-package com.sreid.basiceventlib.test.registry;
+package com.sreid.easyeventbuslib.test.registry;
 
-import com.sreid.basiceventlib.event.Event;
-import com.sreid.basiceventlib.interfaces.IEventListener;
-import com.sreid.basiceventlib.registry.EventListenerNotifyMethod;
-import com.sreid.basiceventlib.registry.EventListenerRegistry;
-import com.sreid.basiceventlib.registry.EventListenerRegistryManager;
+import com.sreid.easyeventbuslib.event.Event;
+import com.sreid.easyeventbuslib.interfaces.IEventListener;
+import com.sreid.easyeventbuslib.registry.EventListenerNotifyMethod;
+import com.sreid.easyeventbuslib.registry.EventListenerRegistry;
+import com.sreid.easyeventbuslib.registry.EventListenerRegistryManager;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;

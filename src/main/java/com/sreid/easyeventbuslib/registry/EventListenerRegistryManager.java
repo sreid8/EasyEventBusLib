@@ -1,9 +1,9 @@
-package com.sreid.basiceventlib.registry;
+package com.sreid.easyeventbuslib.registry;
 
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * creates new instances of {@link com.sreid.basiceventlib.registry.EventListenerRegistry} as needed
+ * creates new instances of {@link com.sreid.easyeventbuslib.registry.EventListenerRegistry} as needed
  * and allows querying to use the same one based on a String key
  * Created by sean on 10/31/16.
  */
@@ -29,11 +29,11 @@ public class EventListenerRegistryManager {
     }
 
     /**
-     * creates a new {@link com.sreid.basiceventlib.registry.EventListenerRegistry registry}
+     * creates a new {@link com.sreid.easyeventbuslib.registry.EventListenerRegistry registry}
      * with the ID specified. should be a unique id becasue if it is a duplicate, the original will be overwitten
      * this this new one
      * @param id -> the ID to name the new registry
-     * @return -> the {@link com.sreid.basiceventlib.registry.EventListenerRegistry registry}
+     * @return -> the {@link com.sreid.easyeventbuslib.registry.EventListenerRegistry registry}
      */
     public EventListenerRegistry createRegistry(final String id) {
         EventListenerRegistry reg = new EventListenerRegistry(id);
@@ -42,10 +42,10 @@ public class EventListenerRegistryManager {
     }
 
     /**
-     * returns the {@link com.sreid.basiceventlib.registry.EventListenerRegistry registry} for the specified ID if
+     * returns the {@link com.sreid.easyeventbuslib.registry.EventListenerRegistry registry} for the specified ID if
      * one exists
      * @param id -> the unique ID for the registry
-     * @return -> the {@link com.sreid.basiceventlib.registry.EventListenerRegistry}
+     * @return -> the {@link com.sreid.easyeventbuslib.registry.EventListenerRegistry}
      */
     public EventListenerRegistry getRegistry(final String id) {
         return (this.registries.get(id) != null ? this.registries.get(id) : this.createRegistry(id));
