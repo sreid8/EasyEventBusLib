@@ -33,34 +33,38 @@ project(":easyeventbuslib").projectDir = file("/path/to/easyevenbuslib")
 Use is extremely simple.
 
 1. Implement the IEventListener interface:
+
 	```java
-public class Example implements IEventListener {
-    @Override
-    public boolean handleEvent(Event event) {
-        //steps to handle event
-        return true;
-    }
-}
+	public class Example implements IEventListener {
+   	 @Override
+    	public boolean handleEvent(Event event) {
+        	//steps to handle event
+        	return true;
+    	}
+	}
 	```
 2. Register your listeners:
+	
 	```java
-//get the registry
-IEventListener someListenerImpl = new SomeListenerImpl();
-EventListenerRegistry registry = EventListenerRegistryManager.getManager().getRegistry("regID");
-registry.registerListener(someListenerImpl);
+	//get the registry
+	IEventListener someListenerImpl = new SomeListenerImpl();
+	EventListenerRegistry registry = EventListenerRegistryManager.getManager().getRegistry("regID");
+	registry.registerListener(someListenerImpl);
 	```
 3. Send some events
+	
 	```java
-public class SomeEventSender {
-    EventListenerRegistry registry = EventListenerRegistryManager.getRegistry("regID");
-    public void someMethod() {
-        this.registry.notifyListeners(new Event(this, SomeStateEnum.THIS_STATE));
-    }
-}
+	public class SomeEventSender {
+    	EventListenerRegistry registry = EventListenerRegistryManager.getRegistry("regID");
+    		public void someMethod() {
+        		this.registry.notifyListeners(new Event(this, SomeStateEnum.THIS_STATE));
+    		}
+	}
 	```
 4. Unregister Listeners as needed
+
 	```java
-registry.deregisterListener(someListenerImpl);
+	registry.deregisterListener(someListenerImpl);
 	```
 
 ### Examples
