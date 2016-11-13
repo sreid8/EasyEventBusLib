@@ -33,7 +33,7 @@ project(":easyeventbuslib").projectDir = file("/path/to/easyevenbuslib")
 Use is extremely simple.
 
 1. Implement the IEventListener interface:
-```java
+	```java
 public class Example implements IEventListener {
     @Override
     public boolean handleEvent(Event event) {
@@ -41,27 +41,27 @@ public class Example implements IEventListener {
         return true;
     }
 }
-```
+	```
 2. Register your listeners:
-```java
+	```java
 //get the registry
 IEventListener someListenerImpl = new SomeListenerImpl();
 EventListenerRegistry registry = EventListenerRegistryManager.getManager().getRegistry("regID");
 registry.registerListener(someListenerImpl);
-```
+	```
 3. Send some events
-```java
+	```java
 public class SomeEventSender {
     EventListenerRegistry registry = EventListenerRegistryManager.getRegistry("regID");
     public void someMethod() {
         this.registry.notifyListeners(new Event(this, SomeStateEnum.THIS_STATE));
     }
 }
-```
+	```
 4. Unregister Listeners as needed
-```java
+	```java
 registry.deregisterListener(someListenerImpl);
-```
+	```
 
 ### Examples
 I'm working on some examples, they'll be posted eventually and I'll link to that repo here when that happens.
