@@ -42,7 +42,6 @@ public class Example implements IEventListener {
     }
 }
 ```
-
 2. Register your listeners:
 ```java
 //get the registry
@@ -50,7 +49,6 @@ IEventListener someListenerImpl = new SomeListenerImpl();
 EventListenerRegistry registry = EventListenerRegistryManager.getManager().getRegistry("regID");
 registry.registerListener(someListenerImpl);
 ```
-
 3. Send some events
 ```java
 public class SomeEventSender {
@@ -60,7 +58,6 @@ public class SomeEventSender {
     }
 }
 ```
-
 4. Unregister Listeners as needed
 ```java
 registry.deregisterListener(someListenerImpl);
